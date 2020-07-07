@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.box input{
+				width: 30px;
+				height: 30px;
+				background: red;
+				color: #fff;
+				text-align: center;
+				line-height: 30px;
+				border: none;
+				outline: none;
+			}
+			.content input{
+				width: 150px;
+				height: 30px;
+				margin-top: 20px;
+			}
+			#result{
+				font-size: 20px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<input type="button" value="+" onclick="changeOption('+')" />
+			<input type="button" value="-" onclick="changeOption('-')"/>
+			<input type="button" value="*" onclick="changeOption('*')"/>
+			<input type="button" value="/" onclick="changeOption('/')"/>
+		</div>
+		<div class="content">
+			<input type="text" id="text"/>
+			<span id="option">+</span>
+			<input type="text" id="text2"/>
+			<span id="result">=</span>
+			<strong id="jieguo"></strong>
+		</div>
+		
+		<script type="text/javascript">
+			//获取元素
+			var oResult=document.getElementById("result");		
+			function changeOption(value){
+				document.getElementById("option").innerHTML=value
+			}
+			oResult.onclick=function(){		
+				var x=parseFloat(document.getElementById("text").value);
+				var y=parseFloat(document.getElementById("text2").value);
+				var oP=document.getElementById("option").innerHTML;
+				var z="";
+				//oP  + - * /
+				switch(oP){
+					case "+":
+					z=x+y;
+					break;
+					case "-":
+					z=x-y;
+					break;
+					case "*":
+					z=x*y;
+					break;
+					case "/":
+					z=x/y;
+					break;
+				}
+				document.getElementById("jieguo").innerHTML=z;
+			}
+			
+		</script>
+		
+		
+	</body>
+</html>

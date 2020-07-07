@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			ul,li{
+				list-style: none;
+			}
+			img{
+				border: 0px;
+			}
+			#banner{
+				width: 750px;
+				height: 360px;
+				margin: 0px auto;
+				position: relative;
+			}
+			#banner #banner-img li{
+				width: 750px;
+				height: 360px;
+				display: none;
+			}
+			#banner #banner-img .now{
+				display: block;
+			}
+			#banner #prev,#banner #next{
+				width: 50px;
+				height: 100px;
+				background: rgba(255,0,0,0.5);
+				position: absolute;
+				top: 50%;
+				margin-top: -50px;
+			}
+			#banner #next{
+				right: 0px;
+			}
+			
+			#banner #prev:hover,#banner #next:hover{
+				background: rgba(255,0,0,0.8);
+			}
+			#banner #dots{
+				width: 200px;
+				height: 20px;
+				/*background: red;*/
+				position: absolute;
+				bottom: 10px;
+				margin-left: -100px;
+				left: 50%;
+				text-align: center;
+			}
+			#banner #dots li{
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background: red;
+				display: inline-block;
+			}
+			#banner #dots .active{
+				background: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="banner">
+			<ul id="banner-img">
+				<li class="now"><img src="images/pic1.jpg"/></li>
+				<li><img src="images/pic2.jpg"/></li>
+				<li><img src="images/pic3.jpg"/></li>
+				<li><img src="images/pic4.jpg"/></li>
+				<li><img src="images/pic5.jpg"/></li>
+			</ul>
+			<!--左右两边按钮-->
+			<div id="prev"></div>
+			<div id="next"></div>
+			<!--指示点-->
+			<ul id="dots">
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			//获取元素
+			var oBanner=document.getElementById("banner");
+			var oBannerImg=document.getElementById("banner-img");
+			var oImgs=oBannerImg.getElementsByTagName("li");
+			var oPrev=document.getElementById("prev");
+			var oNext=document.getElementById("next");
+			var oDots=document.getElementById("dots");
+			var oLis=oDots.getElementsByTagName("li");
+			var timer=null;
+			var num=0;
+			function fn(){
+				for(var i=0;i<oImgs.length;i++){
+					oImgs[i].className="";
+					oLis[i].className="";
+				}
+				oImgs[num].className="now";
+				oLis[num].className="active";
+			}
+			//点击右边按钮
+			oNext.onclick=function(){
+				num++;
+				if(num>oImgs.length-1){
+					num=0;
+				}
+				fn()
+			}
+			//点击左边按钮
+			oPrev.onclick=function(){
+				num--;
+				if(num<0){
+					num=oImgs.length-1;
+				}
+				fn()
+			}
+			
+			//点击指示点
+			for(var j=0;j<oLis.length;j++){
+				oLis[j].index=j; //自定义索引
+				oLis[j].onclick=function(){
+					for(var i=0;i<oImgs.length;i++){
+						oImgs[i].className="";
+						oLis[i].className="";
+					}
+					oImgs[this.index].className="now";
+					this.className="active";
+					num=this.index;
+				}
+			}
+			
+			timer=setInterval(function(){
+				oNext.onclick()
+			},2000);
+			
+			
+			oBanner.onmouseover=function(){
+				clearInterval(timer)
+			}
+			oBanner.onmouseout=function(){
+				timer=setInterval(function(){
+					oNext.onclick()
+				},2000);
+			}
+			
+		</script>
+	</body>
+</html>

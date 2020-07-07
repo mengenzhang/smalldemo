@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#content {
+				width: 500px;
+				height: 500px;
+				background: green;
+			}
+			
+			#box {
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+			}
+			
+			#pox {
+				width: 100px;
+				height: 100px;
+				background: green;
+				position: absolute;
+				right: 0
+			}
+		</style>
+	</head>
+
+	<body>
+		<input type="button" id="btn" value="回放" />
+		<div id="box"></div>
+		<script type="text/javascript">
+			//onmousedown  鼠标选中要拖动的元素
+			//onmousemove  选中的元素在哪里移动
+			//onmouseup	         释放元素
+
+			var oBox = document.getElementById("box");
+			var arrLeft=[];
+			var arrTop=[];
+			function drag(obj) {
+				obj.onmousedown = function(ev) {
+					var e = ev || window.event;
+					var disX = e.clientX - obj.offsetLeft
+					var disY = e.clientY - obj.offsetTop
+
+					//设置全局捕获
+					if(obj.setCapture) {
+						obj.setCapture()
+					}
+
+					document.onmousemove = function(ev) {
+						var e = ev || window.event;
+						var oLeft = e.clientX - disX;
+						var oTop = e.clientY - disY
+						if(oLeft < 0) {
+							oLeft = 0;
+						} else if(oLeft > document.documentElement.clientWidth - obj.offsetWidth) {
+							oLeft = document.documentElement.clientWidth - obj.offsetWidth;
+						}
+
+						if(oTop < 0) {
+							oTop = 0;
+						} else if(oTop > document.documentElement.clientHeight - obj.offsetHeight) {
+							oTop = document.documentElement.clientHeight - obj.offsetHeight
+						}
+						
+						//记录拖动的位置
+						arrLeft.push(oLeft)
+						arrTop.push(oTop)
+						obj.style.left = oLeft + "px";
+						obj.style.top = oTop + "px";
+						
+						//console.log(arrLeft)
+						
+					}
+					obj.onmouseup = function() {
+						document.onmousemove = null;
+						//释放全局捕获
+						if(obj.releaseCapture) {
+							obj.releaseCapture()
+						}
+					}
+					return false; //阻止默认行为
+				}
+			}
+			
+			
+			drag(oBox)
+
+			var oBtn=document.getElementById("btn");
+			
+			oBtn.onclick=function(){
+				arrLeft.reverse();  //数组反转
+				arrTop.reverse();
+				var i=0;
+				timer=setInterval(function(){
+					oBox.style.left=arrLeft[i]+"px";
+					oBox.style.top=arrTop[i]+"px";
+					i++
+					if(i==arrLeft.length){
+						clearInterval(timer);
+						arrLeft=[];
+						arrTop=[];
+					}
+				},30)
+				
+				
+			}
+			
+			
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.tiger {
+				width: 600px;
+				height: 600px;
+				margin: 0px auto;
+				background: #efefef;
+				text-align: center;
+			}
+			
+			.tiger input {
+				width: 60px;
+				height: 60px;
+				text-align: center;
+				line-height: 60px;
+				font-size: 20px;
+				background: red;
+				border: none;
+				outline: none;
+				border-radius: 50%;
+				color: #fff;
+				cursor: pointer;
+			}
+			
+			#circle {
+				width: 500px;
+				height: 500px;
+				margin: 20px auto;
+			}
+			
+			#circle div {
+				width: 123px;
+				height: 123px;
+				border: 1px solid #ccc;
+				float: left;
+				line-height: 125px;
+				font-size: 18px;
+			}
+			
+			#circle div:nth-child(6) {
+				width: 248px;
+				height: 248px;
+				border: 1px solid #ccc;
+			}
+			
+			#circle div:last-child {
+				margin-top: -250px;
+			}
+			
+			#circle .active {
+				background: red;
+				color: #fff;
+			}
+			
+			#price {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="tiger">
+			<input type="button" value="投币" id="btn" />
+			<span id="money">0</span>
+			<input type="button" value="开始" id="start" />
+			<div id="circle">
+				<div class="active">1</div>
+				<div>2</div>
+				<div>3</div>
+				<div>4</div>
+				<div>5</div>
+				<div id="price">6</div>
+				<div>7</div>
+				<div>8</div>
+				<div>9</div>
+				<div>10</div>
+				<div>11</div>
+				<div>12</div>
+				<div>13</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			//获取元素
+			var oBtn = document.getElementById("btn");
+			var oStart = document.getElementById("start");
+			var oMoney = document.getElementById("money");
+			var oPrice = document.getElementById("price");
+			var oCircle = document.getElementById("circle");
+			var oDivs = oCircle.getElementsByTagName("div");
+
+			var coins = 0;
+			var timer = 0;
+			var timer1 = 0;
+			var flag=true;
+			
+			
+			var arr = [0, 1, 2, 3, 6, 7, 11, 10, 9, 8, 12, 4];
+			var arrData = ["郑州都是你的", "洛阳都是你的", "开封都是你的", "新乡都是你的", "许昌都是你的", "商丘都是你的", "周口都是你的", "平顶山都是你的", "漯河都是你的", "南阳都是你的", "信阳都是你的", "驻马店都是你的"]
+			//添加点击事件
+
+			oBtn.onclick = function() {
+				coins++;
+				oMoney.innerHTML = coins
+			}
+			//点击开始按钮
+			oStart.onclick = function() {
+				if(coins > 0) {
+					if(flag){
+						flag=false;
+						timer = setInterval(runFn, 100); //开启运动
+						timer1 = setInterval(function() { //随机停止
+							clearInterval(timer);
+							flag=true;
+						}, (Math.random() * 5 + 1) * 1000)
+						coins--;
+						oMoney.innerHTML = coins
+					}
+				} else {
+					alert("请投币")
+				}
+			}
+			var num = 0;
+			
+			//运动函数
+			function runFn() {
+				if(num == 11) {
+					num = 0;
+				} else {
+					num++
+				}
+				for(var i = 0; i < oDivs.length; i++) {
+					oDivs[i].className = "";
+					oDivs[arr[num]].className = "active";
+					oPrice.innerHTML=arrData[arr[num]]
+				}
+			}
+			
+		</script>
+	</body>
+
+</html>

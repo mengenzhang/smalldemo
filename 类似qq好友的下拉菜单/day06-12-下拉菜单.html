@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			ul,li{
+				list-style: none;
+			}
+			#list{
+				width: 300px;
+				border: 1px solid #ccc;
+				margin: 0px auto;
+			}
+			#list h2{
+				width: 300px;
+				height: 40px;
+				background: url(images/ico1.gif) no-repeat 10px center pink;
+				font-size: 14px;
+				line-height: 40px;
+				text-indent: 25px;
+				color: #fff;
+				border-bottom: 1px solid #efefef;
+				cursor: pointer;
+			}
+			#list .active{
+				background: url(images/ico2.gif) no-repeat 10px center red;
+			}
+			#list ul{
+				display: none;
+			}
+			#list .now{
+				display: block;
+			}
+			#list ul li{
+				line-height: 30px;
+				font-size: 14px;
+				text-align: center;
+				border-bottom: 1px dashed #efefef;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="list">
+			<li>
+				<h2 class="active">我的好友</h2>
+				<ul class="now">
+					<li>张三丰</li>
+					<li>刘德华</li>
+					<li>吴彦祖</li>
+				</ul>
+			</li>
+			<li>
+				<h2>企业好友</h2>
+				<ul>
+					<li>马云</li>
+					<li>王健林</li>
+					<li>潘石屹</li>
+				</ul>
+			</li>
+			<li>
+				<h2>学生好友</h2>
+				<ul>
+					<li>花花</li>
+					<li>草草</li>
+					<li>坤坤</li>
+				</ul>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			//获取元素
+			var oList=document.getElementById("list");
+			var oH2=oList.getElementsByTagName("h2"); //集合
+			var oUl=oList.getElementsByTagName("ul"); //集合
+						
+			//给h2分别添加点击事件
+			
+			for(var i=0;i<oH2.length;i++){
+				oH2[i].index=i;
+				oH2[i].onclick=function(){
+					for(var j=0;j<oH2.length;j++){
+						if(j!=this.index){
+							oUl[j].style.display="none";
+							oH2[j].className="";
+						}
+					}
+					if(this.className==""){
+						oUl[this.index].style.display="block";
+						this.className="active"
+					}else{
+						oUl[this.index].style.display="none";
+						this.className=""
+					}
+				}
+			}
+			
+			
+		</script>
+	</body>
+</html>

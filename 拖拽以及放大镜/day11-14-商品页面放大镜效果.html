@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			#min{
+				width: 350px;
+				height: 350px;
+				border: 5px solid #ccc;
+				position: absolute;
+			}
+			#min img{
+				width: 350px;
+				height: 350px;
+			}
+			#max{
+				width: 500px;
+				height: 500px;
+				position: absolute;
+				left: 365px;
+				border: 5px solid #ccc;
+				overflow: hidden;
+				display: none;
+			}
+			#mask{
+				width: 200px;
+				height: 200px;
+				background: rgba(255,0,0,0.5);
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				cursor: pointer;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="min">
+			<img src="images/min.jpg" alt="" />
+			<div id="mask"></div>
+		</div>
+		<div id="max">
+			<img src="images/max.jpg"/>
+		</div>
+		<script type="text/javascript">
+			//获取元素
+			var oMin=document.getElementById("min");
+			var oMax=document.getElementById("max");
+			var oMask=document.getElementById("mask");
+			var oMaxImg=oMax.getElementsByTagName("img")[0];
+			
+			//给小盒子添加鼠标移动事件
+			oMin.onmousemove=function(ev){
+				var e=ev||window.event;
+				oMask.style.display="block";
+				oMax.style.display="block";
+				//获取鼠标落点位置距离oMin左边或者上边的距离
+				var disX=e.clientX-oMin.offsetLeft;
+				var disY=e.clientY-oMin.offsetTop;
+				
+				//oMask块最多能够移动的距离
+				var maxWidth=oMin.offsetWidth-oMask.offsetWidth;
+				var maxHeight=oMin.offsetHeight-oMask.offsetHeight;
+				
+				//算出鼠标在oMask位置
+				
+				var x=disX-oMask.offsetWidth/2;
+				var y=disY-oMask.offsetHeight/2;
+				
+				if(x>maxWidth){
+					x=maxWidth
+				}else if(x<=0){
+					x=0
+				}
+				
+				
+				if(y>maxHeight){
+					y=maxHeight
+				}else if(y<=0){
+					y=0
+				}
+				
+				oMask.style.left=x+"px";
+				oMask.style.top=y+"px"
+				
+				
+				
+				//算出左边oMask移动比例
+				
+				var moveX=x/maxWidth;
+				var moveY=y/maxHeight;
+				
+				
+				
+				
+				oMax.scrollLeft=moveX*(oMaxImg.offsetWidth-oMax.offsetWidth);
+				oMax.scrollTop=moveY*(oMaxImg.offsetHeight-oMax.offsetHeight);
+				
+			}
+			oMin.onmouseout=function(){
+				oMask.style.display="none";
+				oMax.style.display="none";
+			}
+			
+			
+		</script>
+		
+		
+	</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			ul,li{
+				list-style: none;
+			}
+			#tabs{
+				width: 600px;
+				height: 40px;
+				background: #ccc;
+				margin: 0px auto;
+			}
+			#tabs ul{
+				float:right ;
+			}
+			#tabs ul li{
+				float: left;
+				font-size: 14px;
+				line-height: 40px;
+				margin-left: 10px;
+				padding: 0px 15px;
+				background: #333333;
+				color: #fff;
+				cursor: pointer;
+			}
+			#tabs ul .active{
+				background: red;
+			}
+			.content{
+				width: 600px;
+				height: 300px;
+				margin: 10px auto;
+				border: 2px solid #ccc;
+			}
+			.content>div{
+				width: 600px;
+				height: 300px;
+				background: #ccc;
+				display: none;
+			}
+			.content .now{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<!--tab切换  滑动门效果-->
+		<div id="tabs">
+			<ul>
+				<li class="active">新闻</li>
+				<li>视频</li>
+				<li>音乐</li>
+			</ul>
+		</div>
+		<div class="content" id="content">
+			<div class="now">新闻内容</div>
+			<div>视频内容</div>
+			<div>音乐内容</div>
+		</div>
+		
+		
+		<script type="text/javascript">
+			//获取元素
+			var oTabs=document.getElementById("tabs");
+			var oLis=oTabs.getElementsByTagName("li"); //集合
+			console.log(oLis)
+			var oContent=document.getElementById("content");
+			var oDivs=oContent.getElementsByTagName("div");
+			//console.log(oDivs)
+			for(var i=0;i<oLis.length;i++){
+				oLis[i].index=i; //自定义索引
+				oLis[i].onmouseover=function(){
+					for(var j=0;j<oLis.length;j++){
+						oLis[j].className="";
+						oDivs[j].className="";
+					}
+					this.className="active"
+					oDivs[this.index].className="now";
+				}
+			}
+			
+			//onclick  鼠标点击事件
+			//onmouseover  鼠标经过
+			
+			
+		</script>
+		
+	</body>
+</html>

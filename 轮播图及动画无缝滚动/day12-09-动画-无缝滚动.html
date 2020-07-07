@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			ul,li{
+				list-style: none;
+			}
+			#box{
+				width: 1100px;
+				height: 257px;
+				margin: 0px auto; 
+				overflow: hidden;
+				position: relative;
+			}
+			#box ul{
+				position: absolute;
+				left: 0px;
+			}
+			#box ul li{
+				float: left;
+				width: 200px;
+				padding: 0px 10px;
+			}
+			#box ul li img{
+				width: 200px;
+				height: 257px;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li><img src="images/1.jpg"/></li>
+				<li><img src="images/2.jpg"/></li>
+				<li><img src="images/3.jpg"/></li>
+				<li><img src="images/4.jpg"/></li>
+				<li><img src="images/5.jpg"/></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var oBox=document.getElementById("box");
+			var oUl=oBox.getElementsByTagName("ul")[0];
+			var oLis=oUl.getElementsByTagName("li");
+			
+			oUl.innerHTML+=oUl.innerHTML;
+			oUl.style.width=oLis[0].offsetWidth*oLis.length+"px";
+			
+			var timer=null;
+			var speed=5;
+			
+			//运动函数
+			function moveFn(){
+				if(oUl.offsetLeft<-oUl.offsetWidth/2){
+					oUl.style.left=0;
+				}
+				oUl.style.left=oUl.offsetLeft-speed+"px";
+			}
+			
+			timer=setInterval(moveFn,30);
+			
+			oBox.onmouseover=function(){
+				clearInterval(timer)
+			}
+			oBox.onmouseout=function(){
+				timer=setInterval(moveFn,30);
+			}
+		</script>
+	</body>
+</html>

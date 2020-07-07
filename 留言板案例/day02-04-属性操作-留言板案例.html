@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.content{
+				width: 500px;
+				height: 500px;
+				margin: 0px auto;
+				background: #efefef;
+				overflow: hidden;
+			}
+			.content .top{
+				height: 40px;
+			}
+			.content .top input{
+				float: left;
+				border: none;
+				outline: none;
+			}
+			.content .top input[type="text"]{
+				width: 396px;
+				height: 36px;
+				border: 2px solid red;
+				text-indent: 10px;
+			}
+			.content .top input[type="button"]{
+				width: 100px;
+				height:40px;
+				background: #000000;
+				color: #fff;	
+			}
+			.content .msg{
+				margin-top: 10px;
+				border: 2px solid #333333;
+				width: 496px;
+				height: 446px;
+			}
+			.content .msg h2{
+				height: 42px;
+				border-bottom: 2px solid #333333;
+				text-align: center;
+				font-size: 16px;
+				line-height: 48px;
+			}
+			.content .msg .msgList{
+				height: 400px;
+				overflow: auto;
+			}
+			.content .msg .msgList li{
+				line-height: 30px;
+				border-bottom: 2px dashed #ccc;
+				padding: 0px 10px;
+				font-size: 14px;
+				word-wrap:break-word;
+			}
+			.content .msg .msgList li:nth-child(2n){
+				text-align: right;
+			}
+			.content .msg .msgList li:nth-child(2n+1){
+				text-align: left;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div class="top">
+				<input type="text" placeholder="请输入你想说的话" id="text"/>
+				<input type="button" value="提交留言" id="btn"/>
+			</div>
+			<div class="msg">
+				<h2>留言板</h2>
+				<ul class="msgList" id="msgList"></ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			//获取元素
+			var oBtn=document.getElementById("btn");  //获取提交留言按钮
+			var oText=document.getElementById("text"); //获取文本输入框
+			var msgList=document.getElementById("msgList"); //获取留言板的盒子
+			
+			oBtn.onclick=function(){
+				//msgList.innerHTML就代表原来盒子中的html结构
+				
+				//=赋值
+				//== 相等
+				//===全等
+				//if 如果
+				//else 否则
+				//if(条件判断)
+				//if(条件判断){如果条件成立执行这里的代码}else{条件不成立执行这里的代码}
+				if(oText.value==""){  
+					alert("内容不能为空");
+				}else{
+					msgList.innerHTML=msgList.innerHTML+"<li>"+oText.value+"</li>";
+					oText.value="";
+				}				
+			}
+			
+			
+		</script>
+	</body>
+</html>
